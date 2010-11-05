@@ -16,7 +16,7 @@
 .gallery-item {
 	margin-top: 12px;
 }
-.gallery-entry .gallery-slide {
+.gallery-item .gallery-slide {
 	width: 500px;
 	height: 380px;
 	background: #000;
@@ -26,16 +26,16 @@
 	overflow: hidden;
 	top: -1px;
 }
-	.gallery-entry .gallery-slide img {
+	.gallery-item .gallery-slide img {
 		margin: 0 auto;
 		vertical-align: middle;
 	}
-	.gallery-entry .gallery-slide img.next {
+	.gallery-item .gallery-slide img.next {
 		display: none;
 		margin: 0 auto;
 		vertical-align: middle;
 	}
-	.gallery-entry .gallery-item .image-description {
+	.gallery-item .gallery-item .image-description {
 		text-align: left;
 		background: #ddd;
 		padding: 8px 0px 8px 8px;
@@ -48,7 +48,7 @@
 		border-radius-bottomright: 4px;
 		border-radius-bottomleft: 4px;
 	}
-	.gallery-entry #photo-number {
+	.gallery-item #photo-number {
 		font-family: Arial, Verdana, Helvetica;
 		color: #f0f0f0;
 		background: #000;
@@ -65,7 +65,7 @@
 	}
 /* --------------------------------------------- */	
 /* Gallery nav */
-.gallery-entry .gallery-nav {
+.gallery-item .gallery-nav {
 	width: 500px;
 	height: 24px;
 	background: #ddd;
@@ -77,29 +77,29 @@
 	position: relative;
 }
 
-.gallery-entry .gallery-nav span a {
+.gallery-item .gallery-nav span a {
 	font-family: Arial;
 	font-size: 18px;
 	color:#222;
 	text-decoration: none;
 	padding: 3px 1px;
 }
-	.gallery-entry .gallery-nav span a:hover{
+	.gallery-item .gallery-nav span a:hover{
 		text-decoration: underline;
 	}
-	.gallery-entry #next a {
+	.gallery-item #next a {
 		background: url(next.png) no-repeat right 3px;
 		float: right;
 		width: 30px;
 		height: 20px;
 	}
-	.gallery-entry #previous a {
+	.gallery-item #previous a {
 		background: url(previous.png) no-repeat left 3px;
 		float: right;
 		width: 30px;
 		height: 20px;
 	}
-	.gallery-entry #previous a span, .gallery-entry #next a span {
+	.gallery-item #previous a span, .gallery-item #next a span {
 		display: none;
 	}
     /* Gallery share tools */
