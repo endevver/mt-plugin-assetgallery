@@ -27,9 +27,8 @@ sub load_customfield_type {
                 my $max_height = 0;
 
                 # my $max_width = 580;
-
                 my @asset_loop;
-                my @asset_ids = split ',', $param->{value};
+                my @asset_ids = split(',', $param->{'field_value'});
                 foreach my $id (@asset_ids) {
                     my $asset = MT->model('asset')->load($id) or next;
 
@@ -138,7 +137,6 @@ sub CMSPostSave {
             push @assets, $asset->id;
             $app->param( 'customfield_' . $parent, join( ',', @assets ) );
 
-#	    MT->log({ message => "app->param(".'customfield_'.$parent.") = " . $app->param('customfield_'.$parent) });
         }
     }
 
@@ -147,15 +145,61 @@ sub CMSPostSave {
         my @assets;
         foreach my $id ( split( ',', $app->param($f) ) ) {
             if ( MT->model('asset')->load($id) ) {
-                push @assets, $id if ( MT->model('asset')->load($id) );
+                push @assets, $id;
             }
         }
         $app->param( $f, join( ',', @assets ) );
-
-        #	MT->log({ message => "app->param($f) = " . $app->param($f) });
+        my ($field_root_name) = ($f =~ /^customfield_(.*)$/);
+        _remap_objectassets($obj,$obj->meta('field.'.$field_root_name),$app->param($f));
+        $obj->meta('field.'.$field_root_name,$app->param($f));
     }
-    $obj->save if $multifields;
+    if ($multifields) {
+        $obj->save;
+    }
     return 1;
+}
+
+sub in_array {
+    my ( $arr, $search_for ) = @_;
+    foreach my $value (@$arr) {
+        return 1 if $value eq $search_for;
+    }
+    return 0;
+}
+
+sub _remap_objectassets {
+    my ($obj,$old_str,$new_str) = @_;
+    my @new = split(',',$new_str);
+    my @old = split(',',$old_str);
+    foreach my $new_id (@new) {
+        if (!in_array(\@old,$new_id)) {
+            # This is a new objectasset and needs to be mapped
+            # TODO - MAP ASSET
+            my $obj_asset = MT->model('objectasset')->load({ 
+                asset_id => $new_id, 
+                object_ds => $obj->class_type, 
+                object_id => $obj->id
+            });
+            unless ($obj_asset) {
+               my $obj_asset = MT->model('objectasset')->new;
+                $obj_asset->blog_id($obj->blog_id);
+                $obj_asset->asset_id($new_id);
+                $obj_asset->object_ds($obj->class_type);
+                $obj_asset->object_id($obj->id);
+                $obj_asset->save;
+            }
+        }
+    }
+    foreach my $old_id (@old) {
+        if (!in_array(\@new,$old_id)) {
+            # This is an objectasset that has been removed
+            my $obj_asset = MT->model('objectasset')->remove({ 
+                asset_id => $old_id, 
+                object_ds => $obj->class_type, 
+                object_id => $obj->id
+            });
+        }
+    }
 }
 
 ## Mostly copied from MT::App::CMS::Asset::_upload_file
@@ -221,7 +265,7 @@ s!(<\$?MT[^>]+?>)|(%[_-]?[A-Za-z])!$1 ? $1 : '<mt:FileTemplate format="'. $2 . '
       or return $blog->error( $build->errstr() );
     unless ( $relative_path = $build->build( $ctx, $tokens ) ) {
         MT->log(
-            { message => "error building $file_tmpl: " . $build->errstr() } );
+            { message => "Unable to translate the upload path you specified into a path on the file system. Check the options for the custom field associated with your slideshow: " . $build->errstr() } );
         return $blog->error( $build->errstr() );
     }
 
@@ -233,8 +277,6 @@ s!(<\$?MT[^>]+?>)|(%[_-]?[A-Za-z])!$1 ? $1 : '<mt:FileTemplate format="'. $2 . '
     $digest =~ s{(.......)}{$1,}g;
     my @dirs = split( /,/, $digest );
     $path = File::Spec->catdir( $root_path, $relative_path, @dirs );
-
-#    MT->log({ message => "digest: $digest, some path: $somepath, split: " . join(',',@dirs) });
 
     unless ( $fmgr->exists($path) ) {
         $fmgr->mkpath($path)
