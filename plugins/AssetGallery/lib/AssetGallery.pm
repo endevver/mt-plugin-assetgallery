@@ -10,7 +10,7 @@ sub init_app {
     my ($app) = @_;
     return if $app->id eq 'wizard';
     my $r = $plugin->registry;
-    $r->{tags} = sub { load_tags( $app, $plugin ) };
+    $r->{tags} = load_tags( $app, $plugin );
 
 }
 
@@ -137,7 +137,6 @@ sub CMSPostSave {
             next if !defined $asset;
             push @assets, $asset->id;
             $app->param( 'customfield_' . $parent, join( ',', @assets ) );
-
         }
     }
 
