@@ -32,8 +32,8 @@ $(document).ready( function() {
 
 <input type="hidden" name="<mt:var name="field_id">" value="<mt:var name="field_value">" id="<mt:var name="field_id">" />
     
-<mt:unless name="field_value">
-    <!-- If there's' nothing in the gallery, just show file upload -->
+<mt:unless name="asset_loop">
+    <!-- If there's nothing in the gallery, just show file upload -->
     <input type="file" id="<mt:var name="field_id">_multifile" name="<mt:var name="field_id">_multifile" />
 <mt:else>
     <div id="<mt:var name="field_id">_listing" style="margin-top: 20px;">
