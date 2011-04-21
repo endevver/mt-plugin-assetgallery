@@ -2,9 +2,10 @@
     <script type="text/javascript" src="<mt:var name="static_uri">jquery/jquery.js"></script>
     <script type="text/javascript" src="<mt:var name="static_uri">jquery/ui/ui.core.js"></script>
     <script type="text/javascript" src="<mt:var name="static_uri">jquery/ui/ui.sortable.js"></script>
-    <script type="text/javascript" src="<mt:var name="static_uri">plugins/AssetGallery/js/jquery.MultiFile.pack.js"></script>
+    <script type="text/javascript" src="<mt:var name="static_uri">plugins/AssetGallery/js/jquery.MultiFile.js"></script>
     <script type="text/javascript" src="<mt:var name="static_uri">plugins/AssetGallery/js/field.js"></script>
     <link rel="stylesheet" type="text/css" href="<mt:var name="static_uri">plugins/AssetGallery/css/field.css" />
+    <$mt:var name="asset_gallery_js" value="1"$>
 </mt:unless>
 
 <script type="text/javascript">
@@ -28,8 +29,6 @@ $(document).ready( function() {
   });
 });
 </script>
-
-<$mt:var name="asset_gallery_js" value="1"$>
 
 <input type="hidden" name="<mt:var name="field_id">" value="<mt:var name="field_value">" id="<mt:var name="field_id">" />
     
