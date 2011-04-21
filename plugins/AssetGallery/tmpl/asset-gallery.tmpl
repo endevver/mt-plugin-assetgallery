@@ -4,14 +4,14 @@
     <script type="text/javascript" src="<mt:var name="static_uri">jquery/ui/ui.sortable.js"></script>
     <script type="text/javascript" src="<mt:var name="static_uri">plugins/AssetGallery/js/jquery.MultiFile.pack.js"></script>
     <script type="text/javascript" src="<mt:var name="static_uri">plugins/AssetGallery/js/field.js"></script>
-    <link rel="stylesheet" type="text/css" href="<mt:var name="static_uri">plugins/AssetGallery/css/field.css" />
+    <link rel="stylesheet" type="text/css" href="<mt:PluginStaticWebPath component="AssetGallery">css/field.css" />
 </mt:unless>
 
 <script type="text/javascript">
 $(document).ready( function() {
   $('#<$mt:var name="field_id"$>_multifile').MultiFile({
     STRING: { 
-      remove: '<img src="<mt:var name="static_uri">plugins/AssetGallery/images/delete.png" height="16" width="16" alt="x"/>' 
+      remove: '<img src="<mt:PluginStaticWebPath component="AssetGallery">images/delete.png" height="16" width="16" alt="x"/>' 
     } 
     ,namePattern: '$name_$i'
   });
@@ -61,8 +61,8 @@ $(document).ready( function() {
                           </div>
                         </div>
                         <div class="gallery-actions list-col">
-                          <a href="#" class="edit-asset" mt:asset_id="<$mt:var name="asset_id"$>"><img src="<mt:var name="static_uri">plugins/AssetGallery/images/pencil.png" height="16" width="16" /></a>
-                          <a href="#" class="remove-asset" mt:asset_id="<$mt:var name="asset_id"$>"><img src="<mt:var name="static_uri">plugins/AssetGallery/images/delete.png" height="16" width="16" /></a>
+                          <a href="#" class="edit-asset" mt:asset_id="<$mt:var name="asset_id"$>"><img src="<mt:PluginStaticWebPath component="AssetGallery">images/pencil.png" height="16" width="16" /></a>
+                          <a href="#" class="remove-asset" mt:asset_id="<$mt:var name="asset_id"$>"><img src="<mt:PluginStaticWebPath component="AssetGallery">images/delete.png" height="16" width="16" /></a>
                           <button>OK</button>
                         </div>
                     </li>
