@@ -10,7 +10,7 @@ sub init_app {
     my ($app) = @_;
     return if $app->id eq 'wizard';
     my $r = $plugin->registry;
-    $r->{tags} = sub { load_tags( $app, $plugin ) };
+    $r->{tags} = load_tags( $app, $plugin );
 
 }
 
@@ -137,8 +137,6 @@ sub CMSPostSave {
             next if !defined $asset;
             push @assets, $asset->id;
             $app->param( 'customfield_' . $parent, join( ',', @assets ) );
-
-#	    MT->log({ message => "app->param(".'customfield_'.$parent.") = " . $app->param('customfield_'.$parent) });
         }
     }
 
@@ -151,8 +149,6 @@ sub CMSPostSave {
             }
         }
         $app->param( $f, join( ',', @assets ) );
-
-        #	MT->log({ message => "app->param($f) = " . $app->param($f) });
     }
     $obj->save if $multifields;
     return 1;
@@ -233,8 +229,6 @@ s!(<\$?MT[^>]+?>)|(%[_-]?[A-Za-z])!$1 ? $1 : '<mt:FileTemplate format="'. $2 . '
     $digest =~ s{(.......)}{$1,}g;
     my @dirs = split( /,/, $digest );
     $path = File::Spec->catdir( $root_path, $relative_path, @dirs );
-
-#    MT->log({ message => "digest: $digest, some path: $somepath, split: " . join(',',@dirs) });
 
     unless ( $fmgr->exists($path) ) {
         $fmgr->mkpath($path)
