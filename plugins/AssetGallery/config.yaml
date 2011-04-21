@@ -3,7 +3,7 @@ name: Asset Gallery
 version: 1.2.3
 description: "Introduces a new custom field that allows you to create a gallery of assets"
 author_name: "Byrne Reese"
-author_link: "http://www.endevver.com/"
+author_link: "http://endevver.com/"
 schema_version: 3.1
 
 upgrade_functions:
