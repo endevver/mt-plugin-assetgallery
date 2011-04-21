@@ -140,6 +140,28 @@ photos you uploaded. You can then:
 
 When you are complete, click "Save and Publish" and see your finished product!
 
+## Using Asset Gallery with Theme Manager
+
+The Theme Manager plugin allows you to specify a number of options via a `config.yaml` -
+a simple text based config file. This allows for the automated installation of
+custom fields. 
+
+Here is an example of how to setup a slideshow via a theme in its config.yaml:
+
+    template_sets:
+      some_theme:
+        label: 'My Theme'
+        base_path: 'templates/theme-files'
+        order: 700
+        sys_fields:
+          slideshow:
+            label: My Slideshow
+            type: asset_gallery
+            obj_type: entry
+            options: 'photos/%y/%m/%-f/'
+            tag: My Slideshow
+
+
 # Bug Reports
 
 You can file bug reports here:
