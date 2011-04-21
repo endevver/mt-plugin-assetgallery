@@ -28,7 +28,8 @@ sub load_customfield_type {
 
                 # my $max_width = 580;
                 my @asset_loop;
-                my @asset_ids = split(',', $param->{'field_value'});
+                my $value = $param->{'field_value'} || '';
+                my @asset_ids = split(',', $value);
                 foreach my $id (@asset_ids) {
                     my $asset = MT->model('asset')->load($id) or next;
 
