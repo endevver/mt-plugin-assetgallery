@@ -164,10 +164,7 @@ Here is an example of how to setup a slideshow via a theme in its config.yaml:
 
 # Bug Reports
 
-You can file bug reports here:
-
-* [Via the Web](https://endevver.lighthouseapp.com/projects/41666-asset-gallery/overview)
-* [Via Email](mailto:ticket+endevver.41666-q2ejcfnp@lighthouseapp.com) 
+You can file bug reports in Github's [Issues](https://github.com/endevver/mt-plugin-assetgallery/issues) tool.
 
 # License
 
